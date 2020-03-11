@@ -14,7 +14,7 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
 
     @IBOutlet weak var tableView: UITableView!
     
-    let customerData = Customer.init()
+   
 
     func configureView() {
         // Update the user interface for the detail item.
@@ -31,8 +31,8 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
         didSet {
             // Update the view.
             
-            customerData = Customer
-          
+            print(detailItem)
+            
             
         }
     }
@@ -43,19 +43,21 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
     }
        
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let personalInfoCell = tableView.dequeueReusableCell(withIdentifier: "PersonalInfoCell", for: indexPath) as! PersonalInfoCell
+        let personalInfoCell = tableView.dequeueReusableCell(withIdentifier: "PersonalInfoCell", for: [0,1]) as! PersonalInfoCell
            
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd/MM/yyyy"
         
-       
+        personalInfoCell.nameTextField.text = detailItem?.name
+
+        personalInfoCell.birthdayTextfield.text = formatter.string(from: detailItem!.timestamp ?? Date())
         
-         return personalInfoCell
+        return personalInfoCell
     }
 
     func configurePersonalInfo(_ cell: PersonalInfoCell, withCustomer customer: Customer) {
         
-        cell.nameTextField?.text = customer.name
-         
-           
+      
       
      }
     
