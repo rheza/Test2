@@ -20,6 +20,8 @@ extension Customer {
     @NSManaged public var id: Int64
     @NSManaged public var name: String?
     @NSManaged public var timestamp: Date?
-    @NSManaged public var newRelationship: General?
+    @NSManaged public var ownerGeneral: General?
+    @NSManaged public var ownerProductA: ProductA?
+    @NSManaged public var ownerProductB: ProductB?
 
 }

@@ -1,5 +1,5 @@
 //
-//  CustomerCell.swift
+//  PersonalInfoCell.swift
 //  Test2
 //
 //  Created by Rheza Pahlevi on 11/03/20.
@@ -8,13 +8,11 @@
 
 import UIKit
 
-class CustomerCell: UITableViewCell {
+class PersonalInfoCell: UITableViewCell {
 
-    @IBOutlet weak var customerName: UILabel!
-    @IBOutlet weak var birthdayDate: UILabel!
-    @IBOutlet weak var updatedDate: UILabel!
-    @IBOutlet weak var productName: UILabel!
-
+    @IBOutlet weak var nameTextField: UITextField!
+    
+    @IBOutlet weak var birthdayTextfield: UITextField!
     
     override func awakeFromNib() {
         super.awakeFromNib()

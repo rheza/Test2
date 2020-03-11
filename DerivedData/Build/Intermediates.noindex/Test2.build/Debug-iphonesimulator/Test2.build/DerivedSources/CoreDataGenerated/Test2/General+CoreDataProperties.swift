@@ -23,6 +23,6 @@ extension General {
     @NSManaged public var place: String?
     @NSManaged public var timeStart: Date?
     @NSManaged public var timeStop: Date?
-    @NSManaged public var newRelationship: Customer?
+    @NSManaged public var owner: Customer?
 
 }

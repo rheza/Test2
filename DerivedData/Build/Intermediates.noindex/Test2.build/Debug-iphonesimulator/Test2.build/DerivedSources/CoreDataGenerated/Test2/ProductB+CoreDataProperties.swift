@@ -17,5 +17,14 @@ extension ProductB {
         return NSFetchRequest<ProductB>(entityName: "ProductB")
     }
 
+    @NSManaged public var activityDate: Date?
+    @NSManaged public var activityType: String?
+    @NSManaged public var notes: String?
+    @NSManaged public var price: Int64
+    @NSManaged public var productCode: String?
+    @NSManaged public var termPlan: String?
+    @NSManaged public var timeStart: Date?
+    @NSManaged public var timeStop: Date?
+    @NSManaged public var owner: Customer?
 
 }

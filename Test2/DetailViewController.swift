@@ -8,18 +8,17 @@
 
 import UIKit
 
-class DetailViewController: UIViewController {
+class DetailViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+   
+    
 
-    @IBOutlet weak var detailDescriptionLabel: UILabel!
-
+    @IBOutlet weak var tableView: UITableView!
+    
+    let customerData = Customer.init()
 
     func configureView() {
         // Update the user interface for the detail item.
-        if let detail = detailItem {
-            if let label = detailDescriptionLabel {
-                label.text = detail.timestamp!.description
-            }
-        }
+       
     }
 
     override func viewDidLoad() {
@@ -28,13 +27,37 @@ class DetailViewController: UIViewController {
         configureView()
     }
 
-    var detailItem: Event? {
+    var detailItem: Customer? {
         didSet {
             // Update the view.
-            configureView()
+            
+            customerData = Customer
+          
+            
         }
     }
+    
+ 
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return  1
+    }
+       
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let personalInfoCell = tableView.dequeueReusableCell(withIdentifier: "PersonalInfoCell", for: indexPath) as! PersonalInfoCell
+           
+        
+       
+        
+         return personalInfoCell
+    }
 
-
+    func configurePersonalInfo(_ cell: PersonalInfoCell, withCustomer customer: Customer) {
+        
+        cell.nameTextField?.text = customer.name
+         
+           
+      
+     }
+    
 }
 

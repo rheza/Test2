@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AA19A4862418ED1D0020CD3C /* PersonalInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA19A4852418ED1D0020CD3C /* PersonalInfoCell.swift */; };
+		AAA2CE9E2418C78A00F97803 /* CustomerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAA2CE9D2418C78A00F97803 /* CustomerCell.swift */; };
 		AAB247592418BE3F00F78E3A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB247582418BE3F00F78E3A /* AppDelegate.swift */; };
 		AAB2475C2418BE3F00F78E3A /* Test2.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AAB2475A2418BE3F00F78E3A /* Test2.xcdatamodeld */; };
 		AAB2475E2418BE3F00F78E3A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB2475D2418BE3F00F78E3A /* SceneDelegate.swift */; };
@@ -37,6 +39,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AA19A4852418ED1D0020CD3C /* PersonalInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalInfoCell.swift; sourceTree = "<group>"; };
+		AAA2CE9D2418C78A00F97803 /* CustomerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerCell.swift; sourceTree = "<group>"; };
 		AAB247552418BE3F00F78E3A /* Test2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Test2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAB247582418BE3F00F78E3A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AAB2475B2418BE3F00F78E3A /* Test2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Test2.xcdatamodel; sourceTree = "<group>"; };
@@ -80,6 +84,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AA19A4842418ED030020CD3C /* SupportedCell */ = {
+			isa = PBXGroup;
+			children = (
+				AA19A4852418ED1D0020CD3C /* PersonalInfoCell.swift */,
+			);
+			path = SupportedCell;
+			sourceTree = "<group>";
+		};
 		AAB2474C2418BE3F00F78E3A = {
 			isa = PBXGroup;
 			children = (
@@ -103,9 +115,11 @@
 		AAB247572418BE3F00F78E3A /* Test2 */ = {
 			isa = PBXGroup;
 			children = (
+				AA19A4842418ED030020CD3C /* SupportedCell */,
 				AAB247582418BE3F00F78E3A /* AppDelegate.swift */,
 				AAB2475D2418BE3F00F78E3A /* SceneDelegate.swift */,
 				AAB2475F2418BE3F00F78E3A /* MasterViewController.swift */,
+				AAA2CE9D2418C78A00F97803 /* CustomerCell.swift */,
 				AAB247612418BE3F00F78E3A /* DetailViewController.swift */,
 				AAB247632418BE3F00F78E3A /* Main.storyboard */,
 				AAB247662418BE4400F78E3A /* Assets.xcassets */,
@@ -265,7 +279,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AA19A4862418ED1D0020CD3C /* PersonalInfoCell.swift in Sources */,
 				AAB247602418BE3F00F78E3A /* MasterViewController.swift in Sources */,
+				AAA2CE9E2418C78A00F97803 /* CustomerCell.swift in Sources */,
 				AAB2475C2418BE3F00F78E3A /* Test2.xcdatamodeld in Sources */,
 				AAB247622418BE3F00F78E3A /* DetailViewController.swift in Sources */,
 				AAB247592418BE3F00F78E3A /* AppDelegate.swift in Sources */,
