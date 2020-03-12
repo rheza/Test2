@@ -56,6 +56,7 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                     <connections>
+                                                        <action selector="nameFieldChanged:" destination="JEX-9P-axG" eventType="editingChanged" id="2zC-bI-3eO"/>
                                                         <outlet property="delegate" destination="JEX-9P-axG" id="vFi-v2-dLE"/>
                                                     </connections>
                                                 </textField>
@@ -73,6 +74,8 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                     <connections>
+                                                        <action selector="birthdayFieldBegin:" destination="JEX-9P-axG" eventType="editingDidBegin" id="rWz-eJ-J4Y"/>
+                                                        <action selector="birthdayFieldChanged:" destination="JEX-9P-axG" eventType="editingDidEnd" id="hd8-Bl-bZR"/>
                                                         <outlet property="delegate" destination="JEX-9P-axG" id="rhZ-uW-0TZ"/>
                                                     </connections>
                                                 </textField>
@@ -117,6 +120,10 @@
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
+                                                    <connections>
+                                                        <action selector="productFieldBegin:" destination="JEX-9P-axG" eventType="editingDidBegin" id="HbQ-mO-UjQ"/>
+                                                        <action selector="productFieldChange:" destination="JEX-9P-axG" eventType="editingDidEnd" id="qGu-w8-yuT"/>
+                                                    </connections>
                                                 </textField>
                                             </subviews>
                                             <constraints>
@@ -192,8 +199,12 @@
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
+                                                    <connections>
+                                                        <action selector="activityFieldChange:" destination="JEX-9P-axG" eventType="editingDidEnd" id="lh5-ac-5bw"/>
+                                                        <action selector="activityTypeBegin:" destination="JEX-9P-axG" eventType="editingDidBegin" id="kPX-dv-h7g"/>
+                                                    </connections>
                                                 </textField>
-                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EV7-LK-xAA">
+                                                <textField opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EV7-LK-xAA">
                                                     <rect key="frame" x="264" y="100.5" width="120" height="34"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="34" id="N0M-SN-kvm"/>
@@ -201,8 +212,12 @@
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
+                                                    <connections>
+                                                        <action selector="activityDateFieldBegin:" destination="JEX-9P-axG" eventType="editingDidBegin" id="iZE-rB-JGt"/>
+                                                        <action selector="activityDateFieldChange:" destination="JEX-9P-axG" eventType="editingDidEnd" id="DdC-qL-sFP"/>
+                                                    </connections>
                                                 </textField>
-                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yI3-Os-7Gf">
+                                                <textField opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yI3-Os-7Gf">
                                                     <rect key="frame" x="314" y="145" width="70" height="34"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="34" id="TtD-O8-OgO"/>
@@ -210,6 +225,10 @@
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
+                                                    <connections>
+                                                        <action selector="activityTimeStop:" destination="JEX-9P-axG" eventType="editingDidBegin" id="ppb-FC-bwR"/>
+                                                        <action selector="activityTimeStopChange:" destination="JEX-9P-axG" eventType="editingDidEnd" id="Lwo-0V-zoN"/>
+                                                    </connections>
                                                 </textField>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="..." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Wdn-jJ-eWC">
                                                     <rect key="frame" x="20" y="277.5" width="364" height="144.5"/>
@@ -232,7 +251,7 @@
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                 </textView>
-                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Z8v-MH-za6">
+                                                <textField opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Z8v-MH-za6">
                                                     <rect key="frame" x="236" y="145" width="70" height="34"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="34" id="FYK-e3-ZSg"/>
@@ -240,6 +259,10 @@
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
+                                                    <connections>
+                                                        <action selector="activityTimeStart:" destination="JEX-9P-axG" eventType="editingDidBegin" id="jUs-24-DLa"/>
+                                                        <action selector="activityTimeStartChange:" destination="JEX-9P-axG" eventType="editingDidEnd" id="nC8-iD-Lhp"/>
+                                                    </connections>
                                                 </textField>
                                             </subviews>
                                             <constraints>

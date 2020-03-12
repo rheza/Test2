@@ -37,6 +37,9 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
 
     @objc
     func insertNewObject(_ sender: Any) {
+        
+        performSegue(withIdentifier: "showDetail", sender: sender)
+        /*
         let context = self.fetchedResultsController.managedObjectContext
         let newEvent = Customer(context: context)
              
@@ -52,6 +55,9 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
             let nserror = error as NSError
             fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
         }
+ 
+         */
+        
     }
 
     // MARK: - Segues
@@ -62,6 +68,12 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
             let object = fetchedResultsController.object(at: indexPath)
                 let controller = (segue.destination as! UINavigationController).topViewController as! DetailViewController
                 controller.detailItem = object
+                controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
+                controller.navigationItem.leftItemsSupplementBackButton = true
+                detailViewController = controller
+            }else {
+                let controller = (segue.destination as! UINavigationController).topViewController as! DetailViewController
+                controller.createMode = true
                 controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
                 controller.navigationItem.leftItemsSupplementBackButton = true
                 detailViewController = controller
@@ -119,9 +131,10 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         formatter.dateFormat = "yyyy-MM-dd"
         
         
-        cell.productName?.text = "hello"
-        cell.customerName?.text = "Customer Name"
+        cell.productName?.text = customer.productType
+        cell.customerName?.text = customer.name
         cell.updatedDate?.text = formatter.string(from: customer.timestamp ?? Date())
+        cell.birthdayDate?.text = formatter.string(from: customer.birthday ?? Date())
       
         
    
