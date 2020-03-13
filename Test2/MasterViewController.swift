@@ -20,7 +20,9 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
     
     var fetchPredicate : NSPredicate? {
         didSet {
+            
             fetchedResultsController.fetchRequest.predicate = fetchPredicate
+            
         }
     }
     override func viewDidLoad() {
@@ -67,10 +69,20 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
       
         print(searchText.lowercased())
         if !searchText.isEmpty {
-            var predicate: NSPredicate = NSPredicate()
-            self.fetchPredicate = NSPredicate(format: "name contains[c] '\(searchText)'")
+
+            self.fetchPredicate = NSPredicate(format: "name == '\(searchText.lowercased())'")
             
         }
+        
+        do {
+            try _fetchedResultsController!.performFetch()
+        } catch {
+             // Replace this implementation with code to handle the error appropriately.
+             // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+             let nserror = error as NSError
+             fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+        }
+        
         tableView.reloadData()
     }
     // MARK: - Segues
@@ -169,7 +181,7 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         fetchRequest.predicate = self.fetchPredicate
         // Set the batch size to a suitable number.
         fetchRequest.fetchBatchSize = 20
-        
+        print(fetchRequest.predicate)
         // Edit the sort key as appropriate.
         let sortDescriptor = NSSortDescriptor(key: "timestamp", ascending: false)
         
