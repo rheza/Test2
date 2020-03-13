@@ -22,6 +22,8 @@
 		AAB2476A2418BE4400F78E3A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AAB247682418BE4400F78E3A /* LaunchScreen.storyboard */; };
 		AAB247752418BE4400F78E3A /* Test2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB247742418BE4400F78E3A /* Test2Tests.swift */; };
 		AAB247802418BE4500F78E3A /* Test2UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB2477F2418BE4500F78E3A /* Test2UITests.swift */; };
+		AACD8D1E241B614F00EF6B8E /* ActivityAInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACD8D1D241B614F00EF6B8E /* ActivityAInfoCell.swift */; };
+		AACD8D20241B616900EF6B8E /* ActivityBInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACD8D1F241B616900EF6B8E /* ActivityBInfoCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +65,8 @@
 		AAB2477B2418BE4500F78E3A /* Test2UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Test2UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAB2477F2418BE4500F78E3A /* Test2UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test2UITests.swift; sourceTree = "<group>"; };
 		AAB247812418BE4500F78E3A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AACD8D1D241B614F00EF6B8E /* ActivityAInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityAInfoCell.swift; sourceTree = "<group>"; };
+		AACD8D1F241B616900EF6B8E /* ActivityBInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityBInfoCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +100,8 @@
 				AA19A4852418ED1D0020CD3C /* PersonalInfoCell.swift */,
 				AA589BCB241A1983009165D3 /* ProductSelectionCell.swift */,
 				AA589BCD241A1CAD009165D3 /* ActivityInfoCell.swift */,
+				AACD8D1D241B614F00EF6B8E /* ActivityAInfoCell.swift */,
+				AACD8D1F241B616900EF6B8E /* ActivityBInfoCell.swift */,
 			);
 			path = SupportedCell;
 			sourceTree = "<group>";
@@ -289,11 +295,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				AA19A4862418ED1D0020CD3C /* PersonalInfoCell.swift in Sources */,
+				AACD8D20241B616900EF6B8E /* ActivityBInfoCell.swift in Sources */,
 				AAB247602418BE3F00F78E3A /* MasterViewController.swift in Sources */,
 				AA589BCE241A1CAD009165D3 /* ActivityInfoCell.swift in Sources */,
 				AAA2CE9E2418C78A00F97803 /* CustomerCell.swift in Sources */,
 				AAB2475C2418BE3F00F78E3A /* Test2.xcdatamodeld in Sources */,
 				AA09D746241A31900000A46C /* SupportFunction.swift in Sources */,
+				AACD8D1E241B614F00EF6B8E /* ActivityAInfoCell.swift in Sources */,
 				AA589BCC241A1983009165D3 /* ProductSelectionCell.swift in Sources */,
 				AAB247622418BE3F00F78E3A /* DetailViewController.swift in Sources */,
 				AAB247592418BE3F00F78E3A /* AppDelegate.swift in Sources */,

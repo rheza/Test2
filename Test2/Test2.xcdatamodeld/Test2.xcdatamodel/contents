@@ -1,49 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="19D76" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Customer" representedClassName="Customer" codeGenerationType="class">
+        <attribute name="activityDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="activityType" optional="YES" attributeType="String"/>
         <attribute name="birthday" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
-        <attribute name="productType" optional="YES" attributeType="String"/>
-        <attribute name="timestamp" optional="YES" attributeType="Date"/>
-        <relationship name="ownerGeneral" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="General" inverseName="owner" inverseEntity="General"/>
-        <relationship name="ownerProductA" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ProductA" inverseName="owner" inverseEntity="ProductA"/>
-        <relationship name="ownerProductB" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ProductB" inverseName="owner" inverseEntity="ProductB"/>
-        <userInfo/>
-    </entity>
-    <entity name="General" representedClassName="General" syncable="YES" codeGenerationType="class">
-        <attribute name="activityDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="activityType" optional="YES" attributeType="String"/>
         <attribute name="notes" optional="YES" attributeType="String"/>
         <attribute name="place" optional="YES" attributeType="String"/>
-        <attribute name="timeStart" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="timeStop" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <relationship name="owner" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Customer" inverseName="ownerGeneral" inverseEntity="Customer"/>
-    </entity>
-    <entity name="ProductA" representedClassName="ProductA" syncable="YES" codeGenerationType="class">
-        <attribute name="activityDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="activityType" optional="YES" attributeType="String"/>
-        <attribute name="productCode" optional="YES" attributeType="String"/>
-        <attribute name="reason" optional="YES" attributeType="String"/>
-        <attribute name="timeStart" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="timeStop" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <relationship name="owner" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Customer" inverseName="ownerProductA" inverseEntity="Customer"/>
-    </entity>
-    <entity name="ProductB" representedClassName="ProductB" syncable="YES" codeGenerationType="class">
-        <attribute name="activityDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="activityType" optional="YES" attributeType="String"/>
-        <attribute name="notes" optional="YES" attributeType="String"/>
         <attribute name="price" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="productCode" optional="YES" attributeType="String"/>
+        <attribute name="productType" optional="YES" attributeType="String"/>
+        <attribute name="reason" optional="YES" attributeType="String"/>
         <attribute name="termPlan" optional="YES" attributeType="String"/>
+        <attribute name="timestamp" optional="YES" attributeType="Date"/>
         <attribute name="timeStart" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="timeStop" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <relationship name="owner" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Customer" inverseName="ownerProductB" inverseEntity="Customer"/>
+        <userInfo/>
     </entity>
     <elements>
-        <element name="Customer" positionX="293.0390625" positionY="-2476.70703125" width="111.67578125" height="163"/>
-        <element name="General" positionX="459.01953125" positionY="-2690.56640625" width="128" height="148"/>
-        <element name="ProductA" positionX="612.859375" positionY="-2656.21875" width="128" height="148"/>
-        <element name="ProductB" positionX="551.03125" positionY="-2491.87109375" width="128" height="178"/>
+        <element name="Customer" positionX="293.0390625" positionY="-2476.70703125" width="111.67578125" height="268"/>
     </elements>
 </model>

@@ -2,7 +2,7 @@
 //  Customer+CoreDataProperties.swift
 //  
 //
-//  Created by Rheza Pahlevi on 12/03/20.
+//  Created by Rheza Pahlevi on 13/03/20.
 //
 //  This file was automatically generated and should not be edited.
 //
@@ -17,12 +17,20 @@ extension Customer {
         return NSFetchRequest<Customer>(entityName: "Customer")
     }
 
+    @NSManaged public var activityDate: Date?
+    @NSManaged public var activityType: String?
     @NSManaged public var birthday: Date?
     @NSManaged public var id: Int64
     @NSManaged public var name: String?
+    @NSManaged public var notes: String?
+    @NSManaged public var place: String?
+    @NSManaged public var price: Int64
+    @NSManaged public var productCode: String?
+    @NSManaged public var productType: String?
+    @NSManaged public var reason: String?
+    @NSManaged public var termPlan: String?
     @NSManaged public var timestamp: Date?
-    @NSManaged public var ownerGeneral: General?
-    @NSManaged public var ownerProductA: ProductA?
-    @NSManaged public var ownerProductB: ProductB?
+    @NSManaged public var timeStart: Date?
+    @NSManaged public var timeStop: Date?
 
 }
