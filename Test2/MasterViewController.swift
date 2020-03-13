@@ -126,7 +126,7 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
     }
 
     func configureCell(_ cell: CustomerCell, withCustomer customer: Customer) {
-        print(cell.self)
+       
         
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"

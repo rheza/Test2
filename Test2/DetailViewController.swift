@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class DetailViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
+class DetailViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, NSFetchedResultsControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate, UITextViewDelegate {
     
     
     
@@ -20,6 +20,7 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
     var sections: Array<String> = ["Section 1", "Section 2", "Section 3"]
     var products: Array<String> = ["General","Product A","Product B"]
     var activities: Array<String> = ["Meeting","Call", "Email"]
+    var termPlan: Array<String> = ["12 Bulan", "24 Bulan", "36 Bulan", "48 Bulan"]
     let datePicker = UIDatePicker()
     
     
@@ -37,7 +38,23 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
         // Update the user interface for the detail item.
         tableView.rowHeight = UITableView.automaticDimension;
         tableView.estimatedRowHeight = 44.0;
-        
+        if detailItem?.birthday != nil {
+            let age = calculateAgeDate(dob: detailItem!.birthday!)
+            print("AGE = ")
+            print(age)
+            
+            if (age >= 18 && age <= 23){
+                print("Show Product A")
+                self.products = ["General","Product A"]
+            }else if (age >= 25 && age <= 30) {
+                print("Show Product B")
+                 self.products = ["General","Product A","Product B"]
+            }else {
+                 self.products = ["General"]
+            }
+            
+        }
+       
         
     }
     
@@ -50,6 +67,8 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
             
             
             
+        } else {
+            saveButton.title = "Update"
         }
         configureView()
     }
@@ -112,6 +131,8 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
             customer.setValue(detailItem?.termPlan, forKey: "termPlan")
             customer.setValue(detailItem?.timeStart, forKey: "timeStart")
             customer.setValue(detailItem?.timeStop, forKey: "timeStop" )
+            customer.setValue(detailItem?.reason, forKey: "reason" )
+            customer.setValue(detailItem?.planToStart, forKey: "planToStart" )
             
             
             do {
@@ -120,7 +141,7 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
             } catch let error as NSError {
                 print("Could not save. \(error), \(error.userInfo)")
             }
-            
+           
         } else {
             
             guard let appDelegate =
@@ -134,7 +155,7 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
             
             
             let fetchRequest:NSFetchRequest<NSFetchRequestResult> = NSFetchRequest.init(entityName: "Customer")
-            fetchRequest.predicate = NSPredicate(format: "id = %@", idCustomer)
+            fetchRequest.predicate = NSPredicate(format: "id == %d", idCustomer)
             
             
             do
@@ -142,6 +163,9 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
                 let customerRetrieved = try managedContext.fetch(fetchRequest)
                 
                 let customer = customerRetrieved[0] as! NSManagedObject
+                
+                
+                
                 customer.setValue(detailItem?.birthday, forKeyPath: "birthday")
                 customer.setValue(detailItem?.productType, forKeyPath: "productType")
                 customer.setValue(detailItem?.name, forKeyPath: "name")
@@ -155,24 +179,30 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
                 customer.setValue(detailItem?.termPlan, forKey: "termPlan")
                 customer.setValue(detailItem?.timeStart, forKey: "timeStart")
                 customer.setValue(detailItem?.timeStop, forKey: "timeStop" )
+                customer.setValue(detailItem?.reason, forKey: "reason" )
                 
+                print(customer)
                 do{
                     try managedContext.save()
+                    
                 }
                 catch
                 {
                     print(error)
                 }
+                
             }
             catch
             {
                 print(error)
             }
             
+           
             
         }
         
-        
+       self.navigationController?.popViewController(animated: true)
+     
     }
     
     
@@ -218,11 +248,21 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
                     
                 }
                 
-                
+                if detailItem?.activityType == "Meeting" {
+                    activityInfoCell.placeLabel.isHidden = false
+                    activityInfoCell.placeTextField.isHidden = false
+                    activityInfoCell.placeTextField.text = detailItem!.place ?? ""
+                    activityInfoCell.placeTextField.delegate = self
+                    
+                }else {
+                    activityInfoCell.placeLabel.isHidden = true
+                    activityInfoCell.placeTextField.isHidden = true
+                }
                 let formatterTime = DateFormatter()
                 formatterTime.dateFormat = "HH:mm"
                 print("Detail Item Time Start")
                 print(detailItem?.timeStart)
+                
                 
                 if (detailItem?.timeStart != nil){
                     
@@ -233,8 +273,10 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
                     activityInfoCell.timeStop.text = convertDateToTime(detailItem!.timeStop ?? Date())
                 }
                 
+                
                 activityInfoCell.notesTextField.text = detailItem?.notes
                 
+                activityInfoCell.notesTextField.delegate = self
                 return activityInfoCell
                 
             } else if detailItem?.productType == "Product A"{
@@ -250,7 +292,12 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
                     
                 }
                 
+                activityInfoACell.productCodeField.text = detailItem?.productCode
+                activityInfoACell.productCodeField.delegate = self
                 
+                activityInfoACell.planToStartDate.delegate = self
+                 
+                activityInfoACell.planToStartDate.text = formatter.string(from:detailItem!.planToStart ?? Date())
                 let formatterTime = DateFormatter()
                 formatterTime.dateFormat = "HH:mm"
                 print("Detail Item Time Start")
@@ -268,7 +315,8 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
                 activityInfoACell.reasonTextField.text = detailItem?.reason
                 activityInfoACell.notesTextField.text = detailItem?.notes
                               
-                
+                activityInfoACell.reasonTextField.delegate = self
+                activityInfoACell.notesTextField.delegate = self
                 return activityInfoACell
                 
             } else if detailItem?.productType == "Product B"{
@@ -299,10 +347,12 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
                 if (detailItem?.timeStop != nil){
                     activityInfoBCell.timeStop.text = convertDateToTime(detailItem!.timeStop ?? Date())
                 }
-                
-                
+                activityInfoBCell.estimatedPlanField.text = detailItem?.termPlan
+                activityInfoBCell.estimatedPlanField.delegate = self
                 activityInfoBCell.notesTextField.text = detailItem?.notes
-                
+                activityInfoBCell.notesTextField.delegate = self
+                activityInfoBCell.planPriceField.text = String(detailItem?.price ?? 0)
+                activityInfoBCell.planPriceField.delegate = self
                 return activityInfoBCell
                 
             }
@@ -378,6 +428,21 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
         if currentPicker == 2 {
             
             detailItem!.birthday = datePicker.date
+            
+            let age = calculateAgeDate(dob: datePicker.date)
+                       print("AGE = ")
+                       print(age)
+    
+            if (age >= 18 && age <= 23){
+                print("Show Product A")
+                self.products = ["General","Product A"]
+            }else if (age >= 25 && age <= 30) {
+                print("Show Product B")
+                self.products = ["General","Product A","Product B"]
+            }else {
+                self.products = ["General"]
+            }
+            
         } else if currentPicker == 4{
             
             detailItem!.activityDate = datePicker.date
@@ -389,6 +454,11 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
         } else if currentPicker == 6{
             print(convertDateToTime(datePicker.date))
             detailItem!.timeStop = datePicker.date
+            
+        }else if currentPicker == 11{
+            
+          
+            detailItem!.planToStart = datePicker.date
             
         }
         
@@ -414,6 +484,8 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
             return products.count
         }else if pickerMode == "Activity" {
             return activities.count
+        }else if pickerMode == "termPlan" {
+            return termPlan.count
         }
         
         return 10
@@ -424,6 +496,8 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
             return products[row]
         }else if pickerMode == "Activity" {
             return activities[row]
+        }else if pickerMode == "termPlan" {
+            return termPlan[row]
         }
         
         
@@ -443,15 +517,16 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
             print(activities[row])
             detailItem!.activityType = activities[row]
             tableView.reloadData()
+        }else if pickerMode == "termPlan"{
+            print("Activity")
+            print(termPlan[row])
+            detailItem!.termPlan = termPlan[row]
+            tableView.reloadData()
         }
     }
     
     
-    func textFieldDidBeginEditing(textField: UITextField) {
-        
-        self.activeTextField = textField
-        print(self.activeTextField.tag)
-    }
+  
     
     
     
@@ -579,11 +654,69 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
         
     }
     
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        print("text view")
+        print(textView.tag)
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+          print("text view")
+          print(textView.tag)
+        
+        if textView.tag == 10 {
+            detailItem!.notes = textView.text
+        }else if textView.tag == 20 {
+            detailItem!.reason = textView.text
+        }
+    }
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+          
+          self.activeTextField = textField
+          print(self.activeTextField.tag)
+          print("text field")
+          print(textField.tag)
+         
+        if textField.tag == 11 {
+
+           showDatePicker(forField: textField, mode: "date")
+            
+            
+        } else if textField.tag == 16 {
+         
+            pickerMode = "termPlan"
+            
+            let pickerView = UIPickerView()
+            pickerView.delegate = self
+            pickerView.dataSource = self
+            textField.inputView = pickerView
+            
+            
+            let toolBar = UIToolbar()
+            toolBar.sizeToFit()
+            let button = UIBarButtonItem(title: "Done", style: .plain, target: self, action:  #selector(donedatePicker))
+            toolBar.setItems([button], animated: true)
+            toolBar.isUserInteractionEnabled = true
+            textField.inputAccessoryView = toolBar
+        } else if textField.tag == 15 {
+
+          
+            
+            
+        }
+      }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+         print("textFieldShouldReturn")
+        self.activeTextField = textField
+         print(self.activeTextField.tag)
         switch textField.tag {
         case 10:
             print(textField.text)
             detailItem!.notes = textField.text
+            textField.resignFirstResponder()
+        case 13:
+            print(textField.text)
+            detailItem!.productCode = textField.text
             textField.resignFirstResponder()
         default:
             break
@@ -592,10 +725,23 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        print("textFieldShouldEndEditing")
+        print(textField.text)
         switch textField.tag {
         case 10:
             print(textField.text)
-            detailItem!.notes = textField.text
+            detailItem!.place = textField.text
+            textField.resignFirstResponder()
+        case 13:
+            print(textField.text)
+            detailItem!.productCode = textField.text
+            textField.resignFirstResponder()
+        case 15:
+            print(textField.text)
+            let number: Int64? = Int64(textField.text ?? "0")
+            detailItem!.price = number ?? 0
+            print(detailItem!.price)
+            
             textField.resignFirstResponder()
         default:
             break
@@ -622,6 +768,35 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
         return dateString
     }
     
+    func calculateAge(dob : String, format:String = "dd/MM/yyyy") -> (Int){
+        let df = DateFormatter()
+        df.dateFormat = format
+        let date = df.date(from: dob)
+        guard let val = date else{
+            return (0)
+        }
+        var years = 0
+        
+        
+        
+        let cal = Calendar.current
+        years = cal.component(.year, from: Date()) -  cal.component(.year, from: val)
+        
+        return (years)
+    }
+    
+    func calculateAgeDate(dob : Date) -> (Int){
+
+        var years = 0
+
+        
+        
+        let cal = Calendar.current
+        years = cal.component(.year, from: Date()) -  cal.component(.year, from: dob)
+        
+        return (years)
+    }
+    
 }
 
 
@@ -630,3 +805,19 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
 
 
 
+public extension UIResponder {
+
+    private struct Static {
+        static weak var responder: UIResponder?
+    }
+
+    static func currentFirst() -> UIResponder? {
+        Static.responder = nil
+        UIApplication.shared.sendAction(#selector(UIResponder._trap), to: nil, from: nil, for: nil)
+        return Static.responder
+    }
+
+    @objc private func _trap() {
+        Static.responder = self
+    }
+}

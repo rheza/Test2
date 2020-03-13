@@ -24,6 +24,7 @@ extension Customer {
     @NSManaged public var name: String?
     @NSManaged public var notes: String?
     @NSManaged public var place: String?
+    @NSManaged public var planToStart: Date?
     @NSManaged public var price: Int64
     @NSManaged public var productCode: String?
     @NSManaged public var productType: String?
