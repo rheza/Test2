@@ -133,6 +133,7 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
             customer.setValue(detailItem?.timeStop, forKey: "timeStop" )
             customer.setValue(detailItem?.reason, forKey: "reason" )
             customer.setValue(detailItem?.planToStart, forKey: "planToStart" )
+            customer.setValue(Date(), forKey: "timeStamp" )
             
             
             do {
@@ -180,6 +181,7 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
                 customer.setValue(detailItem?.timeStart, forKey: "timeStart")
                 customer.setValue(detailItem?.timeStop, forKey: "timeStop" )
                 customer.setValue(detailItem?.reason, forKey: "reason" )
+                customer.setValue(Date(), forKey: "timeStamp" )
                 
                 print(customer)
                 do{

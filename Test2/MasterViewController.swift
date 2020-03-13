@@ -13,8 +13,16 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
 
     var detailViewController: DetailViewController? = nil
     var managedObjectContext: NSManagedObjectContext? = nil
-
-
+    var customers: [NSManagedObject] = []
+    
+    let searchController = UISearchController(searchResultsController: nil)
+    var filteredCustomer: [Customer] = []
+    
+    var fetchPredicate : NSPredicate? {
+        didSet {
+            fetchedResultsController.fetchRequest.predicate = fetchPredicate
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -27,6 +35,13 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
             detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
         }
         
+      
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search Customer"
+        navigationItem.searchController = searchController
+        definesPresentationContext = true
+        
        
     }
 
@@ -34,32 +49,30 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         clearsSelectionOnViewWillAppear = splitViewController!.isCollapsed
         super.viewWillAppear(animated)
     }
-
+    
+    var isSearchBarEmpty: Bool {
+      return searchController.searchBar.text?.isEmpty ?? true
+    }
+    
     @objc
     func insertNewObject(_ sender: Any) {
         
         performSegue(withIdentifier: "showDetail", sender: sender)
-        /*
-        let context = self.fetchedResultsController.managedObjectContext
-        let newEvent = Customer(context: context)
-             
-        // If appropriate, configure the new managed object.
-        newEvent.timestamp = Date()
-
-        // Save the context.
-        do {
-            try context.save()
-        } catch {
-            // Replace this implementation with code to handle the error appropriately.
-            // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-            let nserror = error as NSError
-            fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-        }
- 
-         */
+      
         
     }
-
+    
+    func filterContentForSearchText(_ searchText: String,
+                                    category: Customer? = nil) {
+      
+        print(searchText.lowercased())
+        if !searchText.isEmpty {
+            var predicate: NSPredicate = NSPredicate()
+            self.fetchPredicate = NSPredicate(format: "name contains[c] '\(searchText)'")
+            
+        }
+        tableView.reloadData()
+    }
     // MARK: - Segues
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -89,6 +102,8 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+      
         let sectionInfo = fetchedResultsController.sections![section]
         return sectionInfo.numberOfObjects
     }
@@ -96,8 +111,10 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let customerCell = tableView.dequeueReusableCell(withIdentifier: "CustomerCell", for: indexPath) as! CustomerCell
-    
-        let customer = fetchedResultsController.object(at: indexPath)
+        var customer: Customer
+     
+        
+       customer = fetchedResultsController.object(at: indexPath)
        
         configureCell(customerCell, withCustomer: customer)
         return customerCell
@@ -149,7 +166,7 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
         }
         
         let fetchRequest: NSFetchRequest<Customer> = Customer.fetchRequest()
-        
+        fetchRequest.predicate = self.fetchPredicate
         // Set the batch size to a suitable number.
         fetchRequest.fetchBatchSize = 20
         
@@ -222,6 +239,15 @@ class MasterViewController: UITableViewController, NSFetchedResultsControllerDel
          tableView.reloadData()
      }
      */
-
+    var isFiltering: Bool {
+      return searchController.isActive && !isSearchBarEmpty
+    }
 }
 
+
+extension MasterViewController: UISearchResultsUpdating {
+  func updateSearchResults(for searchController: UISearchController) {
+    let searchBar = searchController.searchBar
+    filterContentForSearchText(searchBar.text!)
+  }
+}

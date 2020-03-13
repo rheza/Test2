@@ -14,7 +14,7 @@
         <attribute name="productType" optional="YES" attributeType="String"/>
         <attribute name="reason" optional="YES" attributeType="String"/>
         <attribute name="termPlan" optional="YES" attributeType="String"/>
-        <attribute name="timestamp" optional="YES" attributeType="Date"/>
+        <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="timeStart" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="timeStop" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <userInfo/>
